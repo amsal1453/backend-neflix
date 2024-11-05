@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+ title: Neflix clone API Project
+ description: Netflix api Express MongoDB databases
+paths:
+  /my-movies/{email}/{token}:
+    get:
+      summary: Get Favorite Movies User
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses: 
+        200:
+          description: Succes Getting Favorite Movies
+        401:
+          description: Failed Getting Favorite Movies Unauthorized
+  /my-movies:
+    post: 
+      summary: Saving  User Favorite Movies  to databases
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: amsal1@gmail.com
+                token:
+                  type: string
+                  example: token123
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 3
+                    title:
+                      type: string
+                      example: Hello 123
+                    description:
+                      type: string
+                      example: test boh description 101
+      responses:
+        201:
+          description: Add Favorite Movies Succes
+        401:
+          description: Failed  Getting Favorite Movies
+    delete: 
+      summary: delete favorite Movies from databases
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                email:
+                  type: string
+                  example: amsal1@gmail.com
+                token:
+                  type: string
+                  example: token123
+                movieID:
+                  type: string
+                  example: 4
+      responses:
+        204:
+          description: Remove Favorite Movies Succes
+        500:
+          description: Error Remove Favorite Movies
+  /my-token:
+    post:
+      summary: succes sign in token to databases
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: amsal1@gmail.com
+                password:
+                  type: string
+                  example: 123
+                token:
+                  type: string
+                  example: token123 
+      responses:
+        200:
+          description: sign in token saved
+        500: 
+          description: Error Sign in token
+    delete:
+      summary: succes delete token from databases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: amsal@gmail.com
+                token:
+                  type: string
+                  example: xxx123
+      responses:
+        204:
+          description: sign out token succes
+        400:
+          description: error data provided
+  /sign-up:
+    post:
+      summary: succes user sign-up
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: amsal@gmail.com
+                password:
+                  type: string
+                  example: 123
+      responses:
+        201:
+          description: sign up user succes
+        400:
+          description: email not avalaible
+        500:
+          description: sign up error
